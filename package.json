@@ -1,5 +1,5 @@
 {
-  "name": "resturo",
+  "name": "ember-resturo",
   "version": "0.0.1",
   "description": "User login, registration, authentication package.",
   "directories": {
