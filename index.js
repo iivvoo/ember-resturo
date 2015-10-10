@@ -2,5 +2,8 @@
 'use strict';
 
 module.exports = {
-  name: 'resturo'
+  name: 'ember-resturo',
+  isDevelopingAddon: function() {
+  return true;
+}
 };

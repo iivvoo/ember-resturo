@@ -1,0 +1,34 @@
+<div class="container">
+  <form {{action 'register' on='submit'}}>
+    <div class="form-group">
+      <label for="identification">Login</label>
+      {{input value=identification placeholder='Enter Login' class='form-control'}}
+    </div>
+    <div class="form-group">
+      <label for="identification">First name</label>
+      {{input value=first_name placeholder='Enter first name' class='form-control'}}
+    </div>
+    <div class="form-group">
+      <label for="identification">last name</label>
+      {{input value=last_name placeholder='Enter last name' class='form-control'}}
+    </div>
+    <div class="form-group">
+      <label for="identification">Email</label>
+      {{input value=email placeholder='Enter email address' class='form-control' type='email'}}
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      {{input value=password placeholder='Enter Password' class='form-control' type='password'}}
+    </div>
+    <div class="form-group">
+      <label for="password2">Password (again)</label>
+      {{input value=password2 placeholder='Enter Password' class='form-control' type='password'}}
+    </div>
+    <button type="submit" class="btn btn-default">Register</button>
+  </form>
+  {{#if errorMessage}}
+    <div class="alert alert-danger">
+      <strong>Registration failed:</strong> {{errorMessage}}
+    </div>
+  {{/if}}
+</div>
