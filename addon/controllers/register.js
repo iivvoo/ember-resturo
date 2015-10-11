@@ -20,19 +20,22 @@ export default Ember.Controller.extend({
               email: details.email
             });
             
+
             u.save().then(r => {
                 console.log("Suc", r);
                 console.log(u.get('jwt_token'));
                 // localStorage: ember_simple_auth:session -> {"secure":{}}
                 var authenticator = 'simple-auth-authenticator:jwt';
             
-                var ses = this.get('session');
-                ses.set('content', {secure: {'authenticator': authenticator, 'token': u.get('jwt_token')}});
-                ses.updateStore();
+                // A bit of a hack, required with the newer ember-simple-auth.
+                // This will give us the 'internal-session' ?
+                var ses = this.get('session.session');
+                ses.set('content', {authenticated: {'authenticator': authenticator, 'token': u.get('jwt_token')}});
+                ses._updateStore();
 
-                this.get('session').restore().then(a => {
+                ses.restore().then(a => {
                     console.log("restore s", a);
-                    this.transitionTo('application');
+                    this.transitionToRoute('application');
                 }).catch(e => {
                     console.log("restore e", e);
 
