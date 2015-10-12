@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
             this.get('session').authenticate(authenticator, credentials
             ).then(() => {
                 console.log("Auth ok");
-                //this.transitionTo('application');
+                this.transitionToRoute('application');
             }).catch(message => {
                 this.set('errorMessage', message);
             });
