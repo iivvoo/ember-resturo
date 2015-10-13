@@ -1,30 +1,55 @@
 <div class="container">
   <form {{action 'register' on='submit'}}>
     <div class="form-group">
-      <label for="identification">Login</label>
-      {{input value=identification placeholder='Enter Login' class='form-control'}}
+      <label for="username">Login</label>
+      {{input value=model.username placeholder='Enter Login' class='form-control'}}
+      {{#if (v-get model 'username' 'isInvalid')}}
+        <div class="error">
+          {{v-get model 'username' 'message'}}
+        </div>
+      {{/if}}
     </div>
+
     <div class="form-group">
-      <label for="identification">First name</label>
-      {{input value=first_name placeholder='Enter first name' class='form-control'}}
+      <label for="first_name">First name</label>
+      {{input value=model.first_name placeholder='Enter first name' class='form-control'}}
     </div>
+
     <div class="form-group">
-      <label for="identification">last name</label>
-      {{input value=last_name placeholder='Enter last name' class='form-control'}}
+      <label for="last_name">last name</label>
+      {{input value=model.last_name placeholder='Enter last name' class='form-control'}}
     </div>
+
     <div class="form-group">
-      <label for="identification">Email</label>
-      {{input value=email placeholder='Enter email address' class='form-control' type='email'}}
+      <label for="email">Email</label>
+      {{input value=model.email placeholder='Enter email address' class='form-control' type='email'}}
+      {{#if (v-get model 'email' 'isInvalid')}}
+        <div class="error">
+          {{v-get model 'email' 'message'}}
+        </div>
+      {{/if}}
     </div>
+
     <div class="form-group">
-      <label for="password">Password</label>
-      {{input value=password placeholder='Enter Password' class='form-control' type='password'}}
+      <label for="model.password">Password</label>
+      {{input value=model.password placeholder='Enter Password' class='form-control' type='password'}}
+      {{#if (v-get model 'password' 'isInvalid')}}
+        <div class="error">
+          {{v-get model 'password' 'message'}}
+        </div>
+      {{/if}}
     </div>
+
     <div class="form-group">
-      <label for="password2">Password (again)</label>
-      {{input value=password2 placeholder='Enter Password' class='form-control' type='password'}}
+      <label for="model.passwordConfirmation">Password (again)</label>
+      {{input value=model.passwordConfirmation placeholder='Enter Password' class='form-control' type='password'}}
+      {{#if (v-get model 'passwordConfirmation' 'isInvalid')}}
+        <div class="error">
+          {{v-get model 'passwordConfirmation' 'message'}}
+        </div>
+      {{/if}}
     </div>
-    <button type="submit" class="btn btn-default">Register</button>
+    <button type="submit" disabled={{v-get model 'isInvalid'}} class="btn btn-default">Register</button>
   </form>
   {{#if errorMessage}}
     <div class="alert alert-danger">

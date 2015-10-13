@@ -1,36 +1,71 @@
 import Ember from 'ember';
 
+import {
+  validator, buildValidations
+}
+from 'ember-cp-validations';
+import BufferedProxy from 'ember-buffered-proxy/proxy';
+
+var Validations = buildValidations({
+  username: validator('presence', true),
+  password: [
+    validator('presence', true),
+    validator('length', {
+      min: 4,
+      max: 8
+    })
+  ],
+  passwordConfirmation: [
+    validator('presence', true),
+    validator('confirmation', {
+      on: 'password',
+      message: 'do not match',
+      description: 'Passwords'
+    })
+  ],
+  email: [
+    validator('presence', true),
+    validator('format', { type: 'email' })
+  ]
+});
+
+var ValidUser = BufferedProxy.extend(Validations);
+
 export default Ember.Controller.extend({
     session: Ember.inject.service(),
 
+    setupModelValidation: function() {
+        var model = this.store.createRecord('user');
+
+        this.set('orig', model);
+
+        var wrapped = ValidUser.create({
+            content: model
+        });
+
+        //debugger;
+        this.set('model', wrapped);
+
+    }.on('init'),
+
     actions: {
         register: function() {
-            /*
-             * Create user model; create user and save it, handle save errors.
-             * profile? Unify user and profile in API?
-             */
-            var details = this.getProperties('identification', 'password', 'password2', 'email', 'first_name', 'last_name');
-            console.log(details);
-            //Ember.$.post('/user/', {username: details.identification, password: details.password, email: details.email});
-            var u = this.store.createRecord('user', {
-              username: details.identification,
-              password: details.password,
-              first_name: details.first_name,
-              last_name: details.last_name,
-              email: details.email
-            });
-            
-
-            u.save().then(r => {
+            this.get('model').applyChanges();
+            this.get('orig').save().then(r => {
                 console.log("Suc", r);
-                console.log(u.get('jwt_token'));
-                // localStorage: ember_simple_auth:session -> {"secure":{}}
+                console.log(r.get('jwt_token'));
+
                 var authenticator = 'simple-auth-authenticator:jwt';
-            
+
                 // A bit of a hack, required with the newer ember-simple-auth.
                 // This will give us the 'internal-session' ?
                 var ses = this.get('session.session');
-                ses.set('content', {authenticated: {'authenticator': authenticator, 'token': u.get('jwt_token')}});
+                ses.set('content', {
+                                   authenticated: {
+                                                   'authenticator': authenticator,
+                                                   'token': r.get('jwt_token')
+                                                  }
+                                   });
                 ses._updateStore();
 
                 ses.restore().then(a => {
@@ -38,7 +73,7 @@ export default Ember.Controller.extend({
                     this.transitionToRoute('application');
                 }).catch(e => {
                     console.log("restore e", e);
-
+                    // XXX Feed error back to the form
                 });
 
             }).catch(e => {
