@@ -12,8 +12,10 @@ export default Ember.Controller.extend({
             ).then(() => {
                 console.log("Auth ok");
                 this.transitionToRoute('application');
-            }).catch(message => {
-                this.set('errorMessage', message);
+            }).catch(e => {
+                // assume credentials were incorrect
+                console.log(e);
+                this.set('errorMessage', "Username or password incorrect");
             });
         }
     }
