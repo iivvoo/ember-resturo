@@ -29,10 +29,12 @@ var Validations = buildValidations({
   ]
 });
 
-var ValidUser = BufferedProxy.extend(Validations);
+var ValidUser = BufferedProxy.extend(); // Validations);
 
 export default Ember.Controller.extend({
     session: Ember.inject.service(),
+    errorMessage: '',
+    errors: [],
 
     setupModelValidation: function() {
         var model = this.store.createRecord('user');
@@ -52,9 +54,6 @@ export default Ember.Controller.extend({
         register: function() {
             this.get('model').applyChanges();
             this.get('orig').save().then(r => {
-                console.log("Suc", r);
-                console.log(r.get('jwt_token'));
-
                 var authenticator = 'simple-auth-authenticator:jwt';
 
                 // A bit of a hack, required with the newer ember-simple-auth.
@@ -68,17 +67,18 @@ export default Ember.Controller.extend({
                                    });
                 ses._updateStore();
 
-                ses.restore().then(a => {
-                    console.log("restore s", a);
+                ses.restore().then(() => {
                     this.transitionToRoute('application');
                 }).catch(e => {
-                    console.log("restore e", e);
-                    // XXX Feed error back to the form
+                    this.set('errorMessage',
+                             "An error occured while completing registration");
+                    this.set('errors', e.errors);
                 });
 
             }).catch(e => {
-            
-                console.log("Err", e);
+                this.set('errorMessage', "An error occured while completing registration");
+                this.set('errors', this.get('orig.errors'));
+                // pass errors back to validation?
             });
         }
     }

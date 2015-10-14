@@ -1,59 +1,24 @@
 <div class="container">
   <form {{action 'register' on='submit'}}>
-    <div class="form-group">
-      <label for="username">Login</label>
-      {{input value=model.username placeholder='Enter Login' class='form-control'}}
-      {{#if (v-get model 'username' 'isInvalid')}}
-        <div class="error">
-          {{v-get model 'username' 'message'}}
-        </div>
-      {{/if}}
-    </div>
 
-    <div class="form-group">
-      <label for="first_name">First name</label>
-      {{input value=model.first_name placeholder='Enter first name' class='form-control'}}
-    </div>
+    {{fdbl-input model=model property="username"  label="Login" placeholder="Enter login"}}
+    {{fdbl-input model=model property="first_name"  label="First name" placeholder="Enter first name"}}
+    {{fdbl-input model=model property="last_name" label="Last name" placeholder="Enter last name"}}
+    {{fdbl-input model=model property="email" type="email" label="Email" placeholder="Enter email address"}}
 
-    <div class="form-group">
-      <label for="last_name">last name</label>
-      {{input value=model.last_name placeholder='Enter last name' class='form-control'}}
-    </div>
+    {{fdbl-input model=model property="password" type="password" label="Password" placeholder="Enter password"}}
+    {{fdbl-input model=model property="passwordConfirmation" type="password" label="Password (again)" placeholder="Retype password"}}
 
-    <div class="form-group">
-      <label for="email">Email</label>
-      {{input value=model.email placeholder='Enter email address' class='form-control' type='email'}}
-      {{#if (v-get model 'email' 'isInvalid')}}
-        <div class="error">
-          {{v-get model 'email' 'message'}}
-        </div>
-      {{/if}}
-    </div>
-
-    <div class="form-group">
-      <label for="model.password">Password</label>
-      {{input value=model.password placeholder='Enter Password' class='form-control' type='password'}}
-      {{#if (v-get model 'password' 'isInvalid')}}
-        <div class="error">
-          {{v-get model 'password' 'message'}}
-        </div>
-      {{/if}}
-    </div>
-
-    <div class="form-group">
-      <label for="model.passwordConfirmation">Password (again)</label>
-      {{input value=model.passwordConfirmation placeholder='Enter Password' class='form-control' type='password'}}
-      {{#if (v-get model 'passwordConfirmation' 'isInvalid')}}
-        <div class="error">
-          {{v-get model 'passwordConfirmation' 'message'}}
-        </div>
-      {{/if}}
-    </div>
     <button type="submit" disabled={{v-get model 'isInvalid'}} class="btn btn-default">Register</button>
   </form>
   {{#if errorMessage}}
     <div class="alert alert-danger">
       <strong>Registration failed:</strong> {{errorMessage}}
+      {{#each errors as |error|}}
+        <div class="error">
+          {{error.attribute}}:{{error.message}}
+        </div>
+      {{/each}}
     </div>
   {{/if}}
 </div>
