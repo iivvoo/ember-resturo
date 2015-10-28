@@ -1,9 +1,6 @@
 import Ember from 'ember';
 
-import {
-  validator, buildValidations
-}
-from 'ember-cp-validations';
+import { validator, buildValidations } from 'ember-cp-validations';
 import BufferedProxy from 'ember-buffered-proxy/proxy';
 
 var Validations = buildValidations({
@@ -29,7 +26,7 @@ var Validations = buildValidations({
   ]
 });
 
-var ValidUser = BufferedProxy.extend(); // Validations);
+var ValidUser = BufferedProxy.extend(Validations);
 
 export default Ember.Controller.extend({
     session: Ember.inject.service(),
@@ -45,7 +42,6 @@ export default Ember.Controller.extend({
             content: model
         });
 
-        //debugger;
         this.set('model', wrapped);
 
     }.on('init'),
@@ -76,9 +72,15 @@ export default Ember.Controller.extend({
                 });
 
             }).catch(e => {
-                this.set('errorMessage', "An error occured while completing registration");
-                this.set('errors', this.get('orig.errors'));
-                // pass errors back to validation?
+                let errs = this.get('orig.errors');
+                this.set('errorMessage', "1 An error occured while completing registration");
+                this.set('errors', errs);
+                errs.forEach(e => {
+                    console.log(e);
+                    this.set(`model.validations.attrs.${e.attribute}.messages`, Ember.A([e.message]));
+                    this.set(`model.validations.attrs.${e.attribute}.isValid`, false);
+
+                });
             });
         }
     }
