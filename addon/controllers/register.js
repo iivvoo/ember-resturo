@@ -73,7 +73,7 @@ export default Ember.Controller.extend({
 
             }).catch(e => {
                 let errs = this.get('orig.errors');
-                this.set('errorMessage', "1 An error occured while completing registration");
+                this.set('errorMessage', "An error occured while completing registration");
                 this.set('errors', errs);
                 errs.forEach(e => {
                     console.log(e);
