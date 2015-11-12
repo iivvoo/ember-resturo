@@ -7,10 +7,14 @@ var Validations = buildValidations({
   username: validator('presence', true),
   password: [
     validator('presence', true),
+    /*
     validator('length', {
       min: 4,
       max: 8
     })
+    XXX Disabled - mixed with presence seems to
+    break 'presence' detection ?!
+    */
   ],
   passwordConfirmation: [
     validator('presence', true),
