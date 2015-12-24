@@ -6,7 +6,7 @@ import BufferedProxy from 'ember-buffered-proxy/proxy';
 var Validations = buildValidations({
   username: validator('presence', true),
   password: [
-    validator('presence', true),
+    validator('presence', true)
     /*
     validator('length', {
       min: 4,
