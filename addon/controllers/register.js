@@ -54,7 +54,7 @@ export default Ember.Controller.extend({
         register: function() {
             this.get('model').applyChanges();
             this.get('orig').save().then(r => {
-                var authenticator = 'simple-auth-authenticator:jwt';
+                var authenticator = 'authenticator:jwt';
 
                 // A bit of a hack, required with the newer ember-simple-auth.
                 // This will give us the 'internal-session' ?
