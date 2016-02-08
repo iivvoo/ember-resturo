@@ -6,15 +6,11 @@ import BufferedProxy from 'ember-buffered-proxy/proxy';
 var Validations = buildValidations({
   username: validator('presence', true),
   password: [
-    validator('presence', true)
-    /*
+    validator('presence', true),
     validator('length', {
       min: 4,
       max: 8
     })
-    XXX Disabled - mixed with presence seems to
-    break 'presence' detection ?!
-    */
   ],
   passwordConfirmation: [
     validator('presence', true),
@@ -45,6 +41,7 @@ export default Ember.Controller.extend({
         var wrapped = ValidUser.create({
             content: model
         });
+        Ember.setOwner(wrapped, Ember.getOwner(this));
 
         this.set('model', wrapped);
 
@@ -89,4 +86,3 @@ export default Ember.Controller.extend({
         }
     }
 });
-
