@@ -17,7 +17,7 @@ export default Ember.Component.extend({
     actions: {
         request_reset: function() {
             this.get('data').applyBufferedChanges();
-            let handle = this.get("model.handle")
+            let handle = this.get("model.handle");
             // if handle is not empty
             let adapter = Ember.getOwner(this).lookup("adapter:application");
             let url = adapter.buildURL('users');
@@ -25,7 +25,7 @@ export default Ember.Component.extend({
              {data: {'handle': handle}});
             res.then(() => {
                 this.set('reset_requested', true);
-            })
+            });
         }
     }
 });
