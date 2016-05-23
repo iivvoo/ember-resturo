@@ -26,6 +26,7 @@ var Validations = buildValidations({
   ]
 });
 
+    
 var ValidUser = BufferedProxy.extend(Validations);
 
 export default Ember.Controller.extend({

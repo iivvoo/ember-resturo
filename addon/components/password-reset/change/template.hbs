@@ -4,9 +4,8 @@
           <strong>Reset failed:</strong> {{errorMessage}}
         </div>
     {{/if}}
-    Token: {{token}}
     {{#if reset_completed}}
-    Your password has been reset (unless something went wrong)
+    Your password has been reset
     {{else}}
     <form {{action 'change_password' on='submit'}}>
         {{fdbl-/input model=data inputClass='' property="password" type="password" label="Password" placeholder=(t 'register.placeholder.password')}}
