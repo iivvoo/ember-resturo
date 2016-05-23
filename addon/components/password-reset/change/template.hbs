@@ -1,0 +1,20 @@
+<div class="container">
+    {{#if errorMessage}}
+        <div class="alert alert-danger">
+          <strong>Reset failed:</strong> {{errorMessage}}
+        </div>
+    {{/if}}
+    Token: {{token}}
+    {{#if reset_completed}}
+    Your password has been reset (unless something went wrong)
+    {{else}}
+    <form {{action 'change_password' on='submit'}}>
+        {{fdbl-/input model=data inputClass='' property="password" type="password" label="Password" placeholder=(t 'register.placeholder.password')}}
+
+        {{fdbl-/input model=data inputClass='' property="passwordConfirmation" type="password" label="Password (again)" placeholder=(t 'register.placeholder.password_confirmation')}}
+
+        <button type="submit" disabled={{v-get data 'isInvalid'}}
+                class="btn btn-default">Reset Password</button>
+    </form>
+    {{/if}}
+</div>

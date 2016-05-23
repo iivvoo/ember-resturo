@@ -1,18 +1,1 @@
-<div class="container">
-  {{#if errorMessage}}
-    <div class="alert alert-danger">
-      <strong>Reset failed:</strong> {{errorMessage}}
-    </div>
-  {{/if}}
-  <form {{action 'authenticate' on='submit'}}>
-    <div class="form-group">
-      <label for="password">Password</label>
-      {{input value=password placeholder='Enter Password' class='form-control' type='password'}}
-    </div>
-    <div class="form-group">
-      <label for="password">Password (again)</label>
-      {{input value=password2 placeholder='Enter Password again' class='form-control' type='password'}}
-    </div>
-    <button type="submit" class="btn btn-default">Reset Password</button>
-  </form>
-</div>
+{{password-reset/request}}

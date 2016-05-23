@@ -1,0 +1,19 @@
+<div class="container">
+  {{#if errorMessage}}
+    <div class="alert alert-danger">
+      <strong>Reset failed:</strong> {{errorMessage}}
+    </div>
+  {{/if}}
+  {{#if reset_requested }}
+  An email has been sent with instructions on how to reset your password.
+  {{else}}
+  <form {{action 'request_reset' on='submit'}}>
+        {{fdbl-/input model=data inputClass='' property="handle"
+          name="handle" label="Username / email" placeholder="Username or email"}}
+
+    <button type="submit" disabled={{v-get data 'isInvalid'}}
+            class="btn btn-default">Request reset</button>
+
+  </form>
+  {{/if}}
+</div>
