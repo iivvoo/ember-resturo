@@ -1,13 +1,13 @@
 <div class="container">
   <form {{action 'register' on='submit'}}>
 
-    {{fdbl-input model=model property="username"  label="Login" placeholder="Enter login"}}
-    {{fdbl-input model=model property="first_name"  label="First name" placeholder="Enter first name"}}
-    {{fdbl-input model=model property="last_name" label="Last name" placeholder="Enter last name"}}
-    {{fdbl-input model=model property="email" type="email" label="Email" placeholder="Enter email address"}}
+    {{fdbl-/input model=model property="username"  label="Login" placeholder="Enter login"}}
+    {{fdbl-/input model=model property="first_name"  label="First name" placeholder="Enter first name"}}
+    {{fdbl-/input model=model property="last_name" label="Last name" placeholder="Enter last name"}}
+    {{fdbl-/input model=model property="email" type="email" label="Email" placeholder="Enter email address"}}
 
-    {{fdbl-input model=model property="password" type="password" label="Password" placeholder="Enter password"}}
-    {{fdbl-input model=model property="passwordConfirmation" type="password" label="Password (again)" placeholder="Retype password"}}
+    {{fdbl-/input model=model property="password" type="password" label="Password" placeholder="Enter password"}}
+    {{fdbl-/input model=model property="passwordConfirmation" type="password" label="Password (again)" placeholder="Retype password"}}
 
     <button type="submit" disabled={{v-get model 'isInvalid'}} class="btn btn-default">Register</button>
   </form>
