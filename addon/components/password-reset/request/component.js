@@ -10,7 +10,7 @@ var Validations = buildValidations({
 export default Ember.Component.extend({
     layout: layout,
 
-    model: {'handle': ''},
+    model: Ember.Object.create({'handle': ''}),
     data: formBufferProperty('model', Validations),
     reset_requested: false,
 
