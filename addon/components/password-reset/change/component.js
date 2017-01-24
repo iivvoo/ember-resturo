@@ -43,10 +43,10 @@ export default Ember.Component.extend({
              {data: {token: token, password: password}});
             res.then(() => {
                 this.set('reset_completed', true);
-            }, (e) => {
+            }, () => {
                 this.set('errorMessage', 'Invalid Token');
 
-            }).catch((e) => {
+            }).catch(() => {
                 this.set('errorMessage', 'Invalid Token');
             });
         }
