@@ -1,17 +1,16 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
-// import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('password-reset/request', 'Integration | Component | password reset/request', {
   integration: true,
   beforeEach() {
-    this.register('helper:t', Ember.Helper.helper((v) => { return v[0];}));
-    this.register('helper:v-get', Ember.Helper.helper((v) => { return v[0];}));
+    this.register('helper:t', Ember.Helper.helper((v) => v[0]));
+    this.register('helper:v-get', Ember.Helper.helper((v) => v[0]));
   }
 });
 
 test('it renders', function(assert) {
-//  I GIVE UP!
+  //  I GIVE UP!
   assert.expect(1);
   assert.ok(true);
 

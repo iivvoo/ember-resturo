@@ -4,6 +4,6 @@
 module.exports = {
   name: 'ember-resturo',
   isDevelopingAddon: function() {
-  return true;
-}
+    return true;
+  }
 };
