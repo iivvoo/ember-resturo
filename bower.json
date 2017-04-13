@@ -1,9 +1,7 @@
 {
   "name": "ember-resturo",
   "dependencies": {
-    "ember": "components/ember#canary"
   },
   "resolutions": {
-    "ember": "canary"
   }
 }
