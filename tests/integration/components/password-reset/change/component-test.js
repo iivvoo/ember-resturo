@@ -11,11 +11,9 @@ moduleForComponent('password-reset/change', 'Integration | Component | password 
 });
 
 test('it renders', function(assert) {
-  // I GIVE UP! Fails on ember-default -> Cannot call `Ember.get` with an empty string
   assert.expect(1);
-  assert.ok(true);
 
-  // this.render(hbs`{{password-reset/change}}`);
+  this.render(hbs`{{password-reset/change}}`);
 
-  // assert.ok(this.$().text().match(/Password/));
+  assert.ok(this.$().text().match(/Password/));
 });
