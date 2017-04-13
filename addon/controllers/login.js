@@ -1,28 +1,23 @@
 import Ember from 'ember';
 
-const {
- isNone,
- typeOf
-} = Ember;
+const { Controller, inject, isNone, typeOf } = Ember;
 
-export default Ember.Controller.extend({
-  session: Ember.inject.service(),
+export default Controller.extend({
+  session: inject.service(),
 
   actions: {
-    authenticate: function() {
-      var credentials = this.getProperties('identification', 'password'),
-        authenticator = 'authenticator:jwt';
+    authenticate() {
+      let credentials = this.getProperties('identification', 'password'),
+          routeToRedirectTo = 'application';
 
-      let routeToRedirectTo = 'application';
-      if(!isNone(this.get('session.attemptedTransition') ) ) {
+      if (!isNone(this.get('session.attemptedTransition'))) {
         routeToRedirectTo = this.get('session.attemptedTransition');
       }
 
-      this.get('session').authenticate(authenticator, credentials
-      ).then(() => {
-        console.log("Auth ok");
+      this.get('session').authenticate('authenticator:jwt', credentials).then(() => {
+        console.log('Auth ok');
 
-        if(typeOf(routeToRedirectTo) === 'object') {
+        if (typeOf(routeToRedirectTo) === 'object') {
           return routeToRedirectTo.retry();
         }
 
@@ -30,7 +25,7 @@ export default Ember.Controller.extend({
       }).catch(e => {
         // assume credentials were incorrect
         console.log(e);
-        this.set('errorMessage', "Username or password incorrect");
+        this.set('errorMessage', 'Username or password incorrect');
       });
     }
   }

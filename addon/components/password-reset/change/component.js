@@ -1,16 +1,12 @@
 import Ember from 'ember';
+import formBufferProperty from 'ember-validated-form-buffer';
+import { validator, buildValidations } from 'ember-cp-validations';
 import layout from './template';
 
-import { validator, buildValidations } from 'ember-cp-validations';
-import formBufferProperty from 'ember-validated-form-buffer';
-
-var Validations = buildValidations({
+let Validations = buildValidations({
   password: [
     validator('presence', true),
-    validator('length', {
-      min: 4,
-      max: 8
-    })
+    validator('length', { min: 4, max: 8 })
   ],
   passwordConfirmation: [
     validator('presence', true),
@@ -22,33 +18,34 @@ var Validations = buildValidations({
   ]
 });
 
-export default Ember.Component.extend({
-    layout: layout,
-    token: 'Not Set',
-    errorMessage: '',
+const { Component, getOwner } = Ember;
 
-    model: {password: '', passwordConfirmation: ''},
-    data: formBufferProperty('model', Validations),
-    reset_completed: false,
+export default Component.extend({
+  layout: layout,
+  token: 'Not Set',
+  errorMessage: '',
 
-    actions: {
-        change_password: function() {
-            this.get('data').applyBufferedChanges();
-            let password = this.get("model.password");
-            let token = this.get('token');
+  model: { password: '', passwordConfirmation: '' },
+  data: formBufferProperty('model', Validations),
+  reset_completed: false,
 
-            let adapter = Ember.getOwner(this).lookup("adapter:application");
-            let url = adapter.buildURL('users');
-            let res = adapter.ajax(url + 'reset', 'POST',
-             {data: {token: token, password: password}});
-            res.then(() => {
-                this.set('reset_completed', true);
-            }, () => {
-                this.set('errorMessage', 'Invalid Token');
+  actions: {
+    change_password() {
+      this.get('data').applyBufferedChanges();
+      let password = this.get('model.password');
+      let token = this.get('token');
 
-            }).catch(() => {
-                this.set('errorMessage', 'Invalid Token');
-            });
-        }
+      let adapter = getOwner(this).lookup('adapter:application');
+      let url = adapter.buildURL('users');
+      let res = adapter.ajax(`${url}reset`, 'POST', { data: { token: token, password: password } });
+
+      res.then(() => {
+        this.set('reset_completed', true);
+      }, () => {
+        this.set('errorMessage', 'Invalid Token');
+      }).catch(() => {
+        this.set('errorMessage', 'Invalid Token');
+      });
     }
+  }
 });

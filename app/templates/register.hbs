@@ -1,5 +1,5 @@
 <div class="container">
-  <form {{action 'register' on='submit'}}>
+  <form {{action "register" on="submit"}}>
 
     {{fdbl-/input model=model property="username"  label="Login" placeholder="Enter login"}}
     {{fdbl-/input model=model property="first_name"  label="First name" placeholder="Enter first name"}}
@@ -9,8 +9,9 @@
     {{fdbl-/input model=model property="password" type="password" label="Password" placeholder="Enter password"}}
     {{fdbl-/input model=model property="passwordConfirmation" type="password" label="Password (again)" placeholder="Retype password"}}
 
-    <button type="submit" disabled={{v-get model 'isInvalid'}} class="btn btn-default">Register</button>
+    <button type="submit" disabled={{v-get model "isInvalid"}} class="btn btn-default">Register</button>
   </form>
+  
   {{#if errorMessage}}
     <div class="alert alert-danger">
       <strong>Registration failed:</strong> {{errorMessage}}
