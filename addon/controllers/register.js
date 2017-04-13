@@ -31,7 +31,7 @@ export default Controller.extend({
   errorMessage: '',
   errors: [],
 
-  setupModelValidation() {
+  setupModelValidation: function() {
     let model = this.store.createRecord('user');
 
     this.set('orig', model);
